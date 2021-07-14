@@ -7,26 +7,26 @@ function App() {
   const [passwordList, setPasswordList] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/showpasswords").then((response) => {
+    Axios.get("https://password-manage-nodejs.herokuapp.com/showpasswords").then((response) => {
       setPasswordList(response.data);
     });
   }, []);
 
   const addPassword = () => {
-    Axios.post("http://localhost:3001/addpassword", {
+    Axios.post("https://password-manage-nodejs.herokuapp.com/addpassword", {
       password: password,
       title: title,
     });
   };
 
   const decryptPassword = (encryption) => {
-    Axios.post("http://localhost:3001/decryptpassword", {
+    Axios.post("https://password-manage-nodejs.herokuapp.com/decryptpassword", {
       password: encryption.password,
       iv: encryption.iv,
     }).then((response) => {
       setPasswordList(
         passwordList.map((val) => {
-          return val.id == encryption.id
+          return val.id === encryption.id
             ? {
                 id: val.id,
                 password: val.password,
